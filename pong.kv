@@ -1,0 +1,58 @@
+#:kivy 1.11.0
+
+<PongBall>:
+    size: 50, 50
+    canvas:
+        Ellipse:
+            pos: self.pos
+            size: self.size
+
+<Player>:
+    size: 20, 250
+    canvas:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+<PongGame>:
+    ball: pong_ball
+    player_1: p_1
+    player_2: p_2
+    score_label_1: s_1
+    score_label_2: s_2
+
+    canvas:
+        Rectangle:                      # Rectangle is a primitive graphic
+            pos: self.center_x - 5, 0
+            size: 10, self.height       # self refers to ???
+
+    Label:                              # Label is a child widget of PongGame (widgets are created in a tree)
+        score: "0"
+        id: s_2
+        font_size: 70
+        center_x: root.width / 4        # root refers to the PongGame widget
+        top: root.top - 50
+        text: self.score
+
+    Label:
+        score: "0"
+        id: s_1
+        font_size: 70
+        center_x: root.width * 3 / 4
+        top: root.top - 50
+        text: self.score
+
+    PongBall:
+        id: pong_ball
+        center: self.parent.center
+
+    Player:
+        id: p_1
+        x: root.width - self.width - 10
+        center_y: root.center_y
+
+    Player:
+        id: p_2
+        x: root.x + 10
+        center_y: root.center_y
+
